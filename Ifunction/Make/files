@@ -1,0 +1,7 @@
+Ifunction.C
+LinIndFunction.C
+
+LIB= $(FOAM_USER_LIBBIN)/libIFunction
+
+
+
