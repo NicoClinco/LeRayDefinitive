@@ -34,6 +34,10 @@ class LinIndFunction:
   {};
   
   virtual tmp<volScalarField> EvalViscosity(); 
+  
+  virtual void FilteringStepU( volVectorField& Ufi );
+
+  virtual void FilteringStepE( volScalarField& Efi );
 
   virtual ~LinIndFunction(){};
  

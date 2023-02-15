@@ -93,7 +93,11 @@ int main(int argc, char *argv[])
         rho = thermo.rho();
         
 
-	#include "FilteringStep.H"
+       //	#include "FilteringStep.H"
+
+       pIndicatorFunction->FilteringStepU( Ufi );
+       pIndicatorFunction->FilteringStepE( hefi );
+       thermo.correct();
 
         theta = thermo.T() - gh/thermo.Cp() - theta0;
          

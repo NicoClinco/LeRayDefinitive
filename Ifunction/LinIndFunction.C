@@ -15,12 +15,33 @@ tmp<volScalarField> LinIndFunction::EvalViscosity(){
   
  }
 
-/* Add a method to filter integrally the stuffs
- *
- *
- *
- *
-*/ 
+void LinIndFunction::FilteringStepU(volVectorField& Ufi)
+{
+ tmp<volScalarField> FilterViscosityStep = FilteringViscosityU();
 
+ fvVectorMatrix UfiEqn
+ (
+   -fvm::laplacian(FilterViscosityStep(),Ufi) + fvm::Sp(dimensionedScalar("one",dimless,1),Ufi)
+ );
+
+ solve( UfiEqn == U_ );
+ U_ = Ufi;
+ 
+}
+
+void LinIndFunction::FilteringStepE(volScalarField& Efi)
+{
+ tmp<volScalarField> FilterViscosityStep = FilteringViscosityU();
+
+ fvScalarMatrix EfiEqn
+ (
+   fvm::Sp(dimensionedScalar("one",dimless,1),Efi)-fvm::laplacian(FilterViscosityStep(),Efi)
+ );
+ solve( EfiEqn == E_ );
+
+ E_ = Efi;
 
 }
+
+
+}// end namespace
