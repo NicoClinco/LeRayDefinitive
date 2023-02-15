@@ -21,7 +21,6 @@ Description
 
 #include "fvCFD.H"
 #include "rhoThermo.H"
-#include "turbulentFluidThermoModel.H"
 #include "fvOptions.H"
 #include "pimpleControl.H"
 #include "pointMesh.H"
@@ -55,7 +54,6 @@ int main(int argc, char *argv[])
     #include "compressibleCourantNo.H" 
     #include "setInitialDeltaT.H"
 
-    turbulence->validate();
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -83,17 +81,13 @@ int main(int argc, char *argv[])
             {
                 #include "pEqn.H"
             }
-
-            if (pimple.turbCorr())
-            {
-                turbulence->correct();
-            }
+               
+           
         }
 
         rho = thermo.rho();
         
 
-       //	#include "FilteringStep.H"
 
        pIndicatorFunction->FilteringStep( Ufi,hefi );
 

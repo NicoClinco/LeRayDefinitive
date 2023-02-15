@@ -1,5 +1,6 @@
 Ifunction.C
 LinIndFunction.C
+GradIndFunction.C
 
 LIB= $(FOAM_USER_LIBBIN)/libIFunction
 

@@ -1,5 +1,6 @@
 SOURCE = \
 Ifunction.C \
 LinIndFunction.C \
+GradIndFunction.C \
 
 # sources

@@ -68,17 +68,6 @@ volVectorField U
 
 #include "compressibleCreatePhi.H"
 
-Info<< "Creating turbulence model\n" << endl;
-autoPtr<compressible::turbulenceModel> turbulence
-(
-    compressible::turbulenceModel::New
-    (
-        rho,
-        U,
-        phi,
-        thermo
-    )
-);
 
 #include "readGravitationalAcceleration.H"
 #include "readhRef.H"
