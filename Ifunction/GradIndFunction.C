@@ -15,7 +15,7 @@ tmp<volScalarField> LinIndFunction::EvalViscosity(){
   
  }
 
-void LinIndFunction::FilteringStep(volVectorField& Ufi,volScalarField& Efi)
+void LinIndFunction::FilteringStepU(volVectorField& Ufi)
 {
  tmp<volScalarField> FilterViscosityStep = FilteringViscosityU();
 
@@ -25,15 +25,21 @@ void LinIndFunction::FilteringStep(volVectorField& Ufi,volScalarField& Efi)
  );
 
  solve( UfiEqn == U_ );
- // U_ = Ufi;
+ U_ = Ufi;
  
+}
+
+void LinIndFunction::FilteringStepE(volScalarField& Efi)
+{
+ tmp<volScalarField> FilterViscosityStep = FilteringViscosityU();
+
  fvScalarMatrix EfiEqn
  (
    fvm::Sp(dimensionedScalar("one",dimless,1),Efi)-fvm::laplacian(FilterViscosityStep(),Efi)
  );
  solve( EfiEqn == E_ );
 
- // E_ = Efi;
+ E_ = Efi;
 
 }
 

@@ -95,8 +95,11 @@ int main(int argc, char *argv[])
 
        //	#include "FilteringStep.H"
 
-       pIndicatorFunction->FilteringStepU( Ufi );
-       pIndicatorFunction->FilteringStepE( hefi );
+       pIndicatorFunction->FilteringStep( Ufi,hefi );
+
+       U = Ufi;
+       thermo.he() = hefi;
+
        thermo.correct();
 
         theta = thermo.T() - gh/thermo.Cp() - theta0;

@@ -1,21 +1,21 @@
 // Linear Indicator Function
 
-#ifndef LinIndFunction_H
-#define LinIndFunction_H
+#ifndef GradIndFunction_H
+#define GradIndFunction_H
 
 #include "Ifunction.H"
 
 namespace Foam
 {
 
-class LinIndFunction:
+class GradIndFunction:
  public Ifunction
  {
   public:
-   TypeName("LinIndFunction");
+   TypeName("GradIndFunction");
    
    // Default Constructor
-   LinIndFunction
+   GradIndFunction
    (
     dimensionedScalar& _alphaRadius_,
     volScalarField& _aU,
@@ -35,13 +35,12 @@ class LinIndFunction:
   
   virtual tmp<volScalarField> EvalViscosity(); 
   
-  virtual void FilteringStep( volVectorField& Ufi,volScalarField& Efi );
+  virtual void FilteringStepU( volVectorField& Ufi );
 
+  virtual void FilteringStepE( volScalarField& Efi );
 
-  virtual ~LinIndFunction(){};
- 
-  // Adding a method to filter the quantity into the class itself   
-
+  virtual ~GradIndFunction(){};
+   
  };// end class definition
 
 }

@@ -110,8 +110,8 @@ class Ifunction
 
   virtual tmp<volScalarField>  EvalViscosity() = 0; 
    
-  virtual void FilteringStepU( volVectorField& Ufi ) = 0;
-  virtual void FilteringStepE( volScalarField& Efi ) = 0; 
+  virtual void FilteringStep( volVectorField& Ufi,volScalarField& Efi ) = 0;
+   
     
   virtual ~Ifunction(){};
   
