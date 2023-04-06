@@ -56,6 +56,8 @@ int main(int argc, char *argv[])
 
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+    std::ofstream file;
+    file.open ("PostProcTheta.txt", std::ofstream::out | std::ofstream::app);
 
     while (runTime.run())
     {
@@ -90,15 +92,22 @@ int main(int argc, char *argv[])
 
 
        pIndicatorFunction->FilteringStep( Ufi,hefi );
+       
+        #include "printViscosity.H"
 
+     // scalar chi = 0.7;
+     //    scalar chi = 1;
+     //  U = chi*Ufi+(1-chi)*U;
        U = Ufi;
        thermo.he() = hefi;
 
        thermo.correct();
 
-        theta = thermo.T() - gh/thermo.Cp() - theta0;
-         
-	runTime.write();
+       theta = thermo.T() - gh/thermo.Cp() - theta0;
+       
+       //#include "TBPostProcessing.H"
+
+       runTime.write();
 	
         runTime.printExecutionTime(Info);
     }

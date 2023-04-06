@@ -27,6 +27,9 @@ void LinIndFunction::FilteringStep(volVectorField& Ufi,volScalarField& Efi)
  solve( UfiEqn == U_ );
  // U_ = Ufi;
  
+// scalar Pr = 0.7;
+// (FilterViscosityStep.ref())/=Pr;
+
  fvScalarMatrix EfiEqn
  (
    fvm::Sp(dimensionedScalar("one",dimless,1),Efi)-fvm::laplacian(FilterViscosityStep(),Efi)
