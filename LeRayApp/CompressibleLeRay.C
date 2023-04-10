@@ -16,7 +16,7 @@ Application
     dryAir
 Description
     Transient solver for compressible Navier-Stokes equations with gravity
-    Turbulence is modelled using the linear-filter 
+    Turbulence is modelled EFR approach
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     argList::addNote
     (
         "Transient solver for dryAir, with the"
-	 " linear filter approach"
+	 "EFR algorithm "
     );
 
     #include "postProcess.H"
@@ -56,8 +56,6 @@ int main(int argc, char *argv[])
 
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-    std::ofstream file;
-    file.open ("PostProcTheta.txt", std::ofstream::out | std::ofstream::app);
 
     while (runTime.run())
     {
@@ -89,15 +87,8 @@ int main(int argc, char *argv[])
 
         rho = thermo.rho();
         
-
-
        pIndicatorFunction->FilteringStep( Ufi,hefi );
        
-        #include "printViscosity.H"
-
-     // scalar chi = 0.7;
-     //    scalar chi = 1;
-     //  U = chi*Ufi+(1-chi)*U;
        U = Ufi;
        thermo.he() = hefi;
 
@@ -105,8 +96,7 @@ int main(int argc, char *argv[])
 
        theta = thermo.T() - gh/thermo.Cp() - theta0;
        
-       //#include "TBPostProcessing.H"
-
+      
        runTime.write();
 	
         runTime.printExecutionTime(Info);
